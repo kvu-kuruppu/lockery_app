@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "107566730443",
+    "project_id": "lockery-app",
+    "storage_bucket": "lockery-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107566730443:android:37ce1b2178c075e8cf1f4e",
+        "android_client_info": {
+          "package_name": "com.example.lockery_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107566730443-5lrn73mvj787en15rda0842sn65hac27.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtH7Zc8zEgLKPSd8t8R6MJZFEk2uXpNHA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107566730443-5lrn73mvj787en15rda0842sn65hac27.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "107566730443-uf3lmko7ah9q0cslcmoa3m7aqk80sedh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.lockeryApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
