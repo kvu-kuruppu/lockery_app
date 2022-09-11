@@ -1,8 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lockery_app/enums/menu_actions.dart';
+import 'package:lockery_app/services/auth/auth_service.dart';
 import 'dart:developer' as devtools show log;
-
 import 'package:lockery_app/utils/show_log_out_dialog.dart';
 
 class MainScreen extends StatefulWidget {
@@ -25,7 +24,7 @@ class _MainScreenState extends State<MainScreen> {
                 case MenuAction.logout:
                   final shouldLogOut = await showLogOutDialog(context);
                   if (shouldLogOut) {
-                    await FirebaseAuth.instance.signOut();
+                    await AuthService.firebase().logOut();
                     Navigator.of(context).pushNamedAndRemoveUntil(
                       '/login',
                       (_) => false,
