@@ -61,6 +61,7 @@ class _RegisterViewState extends State<RegisterView> {
         children: [
           Container(
             height: 150,
+            padding: const EdgeInsets.only(top: 40),
             decoration: const BoxDecoration(
               color: Color.fromARGB(255, 87, 127, 160),
               borderRadius: BorderRadius.only(
@@ -68,16 +69,12 @@ class _RegisterViewState extends State<RegisterView> {
                 bottomRight: Radius.circular(150),
               ),
             ),
-            child: const Padding(
-              padding: EdgeInsets.only(top: 40),
-              // Create New Account
-              child: Text(
-                'Create New Account',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 35,
-                  color: Colors.black,
-                ),
+            child: const Text(
+              'Create New Account',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 35,
+                color: Colors.black,
               ),
             ),
           ),
@@ -90,6 +87,7 @@ class _RegisterViewState extends State<RegisterView> {
               key: _formKey,
               child: Column(
                 children: [
+                  // First name and last name
                   Row(
                     children: [
                       Flexible(

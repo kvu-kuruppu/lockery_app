@@ -39,6 +39,7 @@ dependencies:
   firebase_auth: ^3.8.0
   cloud_firestore: ^3.4.7
   firebase_analytics: ^9.3.4
+  qr_flutter: ^4.0.0
 
 dev_dependencies:
   flutter_test:
