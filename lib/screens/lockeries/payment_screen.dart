@@ -19,7 +19,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
   TextEditingController expiryDateinput = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool isLocked = true;
-  List<String> docIdd = ['abc 1', 'abc 5'];
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +54,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         ),
         child: Form(
           key: _formKey,
-          child: Column(
+          child: ListView(
             children: [
               // Start Date
               TextFormField(
@@ -73,8 +72,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       firstDate: DateTime(1996),
                       lastDate: DateTime(2101));
                   if (pickedDate != null) {
-                    String formattedDate =
-                        DateFormat('yyyy/MM/dd').format(pickedDate);
+                    String formattedDate = DateFormat.yMd().format(pickedDate);
                     setState(
                       () {
                         startDateinput.text = formattedDate;
@@ -102,8 +100,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       firstDate: DateTime(1996),
                       lastDate: DateTime(2101));
                   if (pickedDate != null) {
-                    String formattedDate =
-                        DateFormat('yyyy/MM/dd').format(pickedDate);
+                    String formattedDate = DateFormat.yMd().format(pickedDate);
                     setState(
                       () {
                         endDateinput.text = formattedDate;
@@ -166,9 +163,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   Expanded(
                     // Expiry Date
                     child: TextFormField(
-                      controller: startDateinput,
+                      controller: expiryDateinput,
                       decoration: const InputDecoration(
-                        labelText: 'Expiry Date',
+                        labelText: 'End Date',
                         suffixIcon: Icon(Icons.calendar_month),
                       ),
                       readOnly: true,
@@ -179,15 +176,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             initialDate: DateTime.now(),
                             firstDate: DateTime(1996),
                             lastDate: DateTime(2101));
-                        // if (pickedDate != null) {
-                          // String formattedDate =
-                          //     DateFormat('yy/MM').format(pickedDate);
-                        //   setState(
-                        //     () {
-                        //       expiryDateinput.text = pickedDate.;
-                        //     },
-                        //   );
-                        // }
+                        if (pickedDate != null) {
+                          String formattedDate =
+                              DateFormat('MM/yy').format(pickedDate);
+                          setState(
+                            () {
+                              expiryDateinput.text = formattedDate;
+                            },
+                          );
+                        }
                       },
                     ),
                     // TextFormField(
@@ -230,12 +227,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   if (_formKey.currentState!.validate()) {
                     await FirebaseFirestore.instance
                         .collection('locker')
-                        .where('user_id', isEqualTo: userId)
+                        .where(
+                          'user_id',
+                          isEqualTo: userId,
+                        )
                         .get()
                         .then((querySnapshot) {
                       querySnapshot.docs.forEach((documentSnapshot) {
-                        documentSnapshot.reference
-                            .update({'is_locked': isLocked});
+                        documentSnapshot.reference.update({'is_locked': true});
                       });
                     });
                     await showErrorDialog(

@@ -34,6 +34,15 @@ class LockeryData extends StatelessWidget {
                 IconButton(
                   onPressed: () async {
                     final userId = AuthService.firebase().currentUser!.id;
+                    print(userId);
+                    print(uid);
+
+                    // if (userId != null) {
+                    //   Navigator.of(context).pushNamed(
+                    //     notesRoute,
+                    //     // (route) => false,
+                    //   );
+                    // }
 
                     await FirebaseFirestore.instance
                         .collection('locker')
@@ -45,7 +54,7 @@ class LockeryData extends StatelessWidget {
                         .then((querySnapshot) {
                       querySnapshot.docs.forEach((documentSnapshot) {
                         documentSnapshot.reference
-                            .update({'is_locked': true, 'user_id': userId});
+                            .update({'user_id': userId});
                       });
                     });
                     Navigator.of(context).pushNamedAndRemoveUntil(

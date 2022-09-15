@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-
 class GetQR extends StatelessWidget {
   final String docId;
   GetQR({Key? key, required this.docId}) : super(key: key);
@@ -19,19 +18,20 @@ class GetQR extends StatelessWidget {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
           String fname = data['first_name'];
+          String lname = data['last_name'];
           return SingleChildScrollView(
             child: Column(
               children: [
                 Center(
                   child: QrImage(
-                    data: fname,
+                    data: 'Name: $fname $lname',
                     size: 300,
                   ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                Text(fname),
+                Text('Name: $fname$lname'),
               ],
             ),
           );
