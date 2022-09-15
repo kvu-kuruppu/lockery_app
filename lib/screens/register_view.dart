@@ -1,12 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:lockery_app/constants/routes.dart';
 import 'package:lockery_app/services/auth/auth_exceptions.dart';
 import 'package:lockery_app/services/auth/auth_service.dart';
+import 'package:lockery_app/utils/dialogs/error_dialog.dart';
 
 import 'dart:developer' as devtools show log;
 
-import 'package:lockery_app/utils/show_error_dialog.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -16,7 +16,6 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  TextEditingController dateinput = TextEditingController();
   late final TextEditingController _email;
   late final TextEditingController _password;
   late final TextEditingController _firstName;
@@ -29,12 +28,13 @@ class _RegisterViewState extends State<RegisterView> {
     _password = TextEditingController();
     _firstName = TextEditingController();
     _lastName = TextEditingController();
-    dateinput.text = '';
     super.initState();
   }
 
   @override
   void dispose() {
+    // _firstName.dispose();
+    // _lastName.dispose();
     _email.dispose();
     _password.dispose();
     super.dispose();
@@ -115,32 +115,6 @@ class _RegisterViewState extends State<RegisterView> {
                       ),
                     ],
                   ),
-                  // Date Of Birth
-                  TextFormField(
-                    controller: dateinput,
-                    decoration: const InputDecoration(
-                      labelText: 'Date of Birth',
-                      suffixIcon: Icon(Icons.calendar_month),
-                    ),
-                    validator: (val) => val!.isEmpty ? 'requied*' : null,
-                    readOnly: true,
-                    onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(1996),
-                          lastDate: DateTime(2101));
-                      if (pickedDate != null) {
-                        String formattedDate =
-                            DateFormat('yyyy/MM/dd').format(pickedDate);
-                        setState(
-                          () {
-                            dateinput.text = formattedDate;
-                          },
-                        );
-                      }
-                    },
-                  ),
                   // Email Address
                   TextFormField(
                     decoration: const InputDecoration(
@@ -181,6 +155,14 @@ class _RegisterViewState extends State<RegisterView> {
                             email: email,
                             password: password,
                           );
+                          Map<String, dynamic> data = {
+                            'first_name': _firstName.text,
+                            'last_name': _lastName.text,
+                            'user_id': userCredential.id,
+                          };
+                          await FirebaseFirestore.instance
+                              .collection('user')
+                              .add(data);
                           devtools.log(userCredential.toString());
                           await showErrorDialog(
                             context,

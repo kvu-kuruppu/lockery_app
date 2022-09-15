@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lockery_app/constants/routes.dart';
 import 'package:lockery_app/services/auth/auth_exceptions.dart';
 import 'package:lockery_app/services/auth/auth_service.dart';
+import 'package:lockery_app/utils/dialogs/error_dialog.dart';
 import 'dart:developer' as devtools show log;
-import 'package:lockery_app/utils/show_error_dialog.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
